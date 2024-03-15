@@ -17,6 +17,17 @@ export default {
 
 <style scoped>
 .main-page {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+.left-menu {
+  width: 350px;
+  background-color: #f7f6f3;
+}
+.right-view {
+  flex-grow: 1;
   padding: 10px;
 }
+
 </style>
