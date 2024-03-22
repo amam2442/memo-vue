@@ -1,22 +1,19 @@
 <template>
   <div class="main-page">
-    <div class="left-menu" @click.self="onEditNoteEnd()">
+    <div class="left-menu">
        <!-- ノートリスト -->
        <div class="note" v-for="note in noteList" v-bind:key="note.id">
         <div class="note-icon">
           <i class="fas fa-file-alt"></i>
         </div>
         <div class="note-name">{{note.name}}</div>
-        <div class="button-icon" @click="onClickDelete(note)">
-        <i class="fas fa-trash"></i>
-      </div>
       </div>
       <!-- ノート追加ボタン -->
       <button class="transparent" @click="onClickButtonAdd">
         <i class="fas fa-plus-square"></i>ノートを追加
       </button>
     </div>
-    <div class="right-view" @click.self="onEditNoteEnd()">
+    <div class="right-view">
       右ビュー
     </div>
   </div>
@@ -37,20 +34,6 @@ export default {
         name : `新規ノート`,
         editing : false,
       })
-    },
-    onClickDelete : function(deleteNote) {
-      const index = this.noteList.indexOf(deleteNote);
-      this.noteList.splice(index, 1);
-    },
-    onEditNoteStart : function(editNote) {
-      for (let note of this.noteList) {
-        note.editing = (note.id === editNote.id);
-      }
-    },
-    onEditNoteEnd : function() {
-      for (let note of this.noteList) {
-          note.editing = false;
-      }
     },
   },
 }
