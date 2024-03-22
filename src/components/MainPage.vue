@@ -3,16 +3,21 @@
     <div class="left-menu">
       <!-- ノートリスト -->
       <div class="note" v-for="note in noteList" v-bind:key="note.id">
-        <div class="note-icon">
-          <i class="fas fa-file-alt"></i>
-        </div>
-        <div class="note-name">{{ note.name }}</div>
-        <div class="button-icon">
-          <i class="fas fa-edit"></i>
-        </div>
-        <div class="button-icon" @click="onDeleteNote">
-          <i class="fas fa-trash"></i>
-        </div>
+        <template v-if="note.editing">
+          <input v-model="note.name" class="transparent" @keypress.enter="onEditEnd" />
+        </template>
+        <template v-else>
+          <div class="note-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="note-name">{{ note.name }}</div>
+          <div class="button-icon" @click="onEditStart">
+            <i class="fas fa-edit"></i>
+          </div>
+          <div class="button-icon" @click="onDeleteNote">
+            <i class="fas fa-trash"></i>
+          </div>
+        </template>
       </div>
       <!-- ノート追加ボタン -->
       <button class="transparent" @click="onClickButtonAdd">
@@ -38,12 +43,24 @@ export default {
       this.noteList.push({
         id: new Date().getTime().toString(16),
         name: `新規ノート`,
+        editing: false,
       })
     },
 
     onDeleteNote: function (deleteNote) {
       const index = this.noteList.indexOf(deleteNote);
       this.noteList.splice(index, 1);
+    },
+
+    onEditStart: function (editNote) {
+      for (let note of this.noteList) {
+        note.editing = (note.id === editNote.id);
+      }
+    },
+    onEditEnd: function () {
+      for (let note of this.noteList) {
+        note.editing = false;
+      }
     },
   },
 }
