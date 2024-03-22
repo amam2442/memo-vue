@@ -11,7 +11,7 @@
             <i class="fas fa-file-alt"></i>
           </div>
           <div class="note-name">{{ note.name }}</div>
-          <div class="button-icon" @click="onEditStart">
+          <div class="button-icon" @click="onEditStart(note)">
             <i class="fas fa-edit"></i>
           </div>
           <div class="button-icon" @click="onDeleteNote">
